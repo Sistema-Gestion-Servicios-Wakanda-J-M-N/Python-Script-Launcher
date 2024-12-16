@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend_Wakanda_Gobierno" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend_Wakanda_Salud" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/InitManager" vcs="Git" />
+  </component>
+</project>
