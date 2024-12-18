@@ -20,6 +20,22 @@ Organizacion con todos --> https://github.com/Sistema-Gestion-Servicios-Wakanda-
 16. https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Servicios-Emergencia
 17. https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Educacion
 
+    Antes de ejecutar, cambiar ruta a la del ordenador propio y ejecutar en local: 
+
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend_Wakanda_Salud.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Agua.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Trafico.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Seguridad.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Residuos.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Servicios-Emergencia.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Educacion.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Cultura-Ocio-Turismo.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Transporte-Movilidad.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Conectividad-Redes.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Energia-Sostenible-Eficiente.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-Gobierno.git
+git clone https://github.com/Sistema-Gestion-Servicios-Wakanda-J-M-N/Backend-Wakanda-API-Central.git
+
 ## Participantes del proyecto
 
 - Jaime López Díaz
