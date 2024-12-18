@@ -1,140 +1,86 @@
-import os
 import subprocess
-import time
+import os
 
-# Ruta absoluta de Maven
-MAVEN_CMD = r"C:\Users\cuell\Downloads\apache-maven-4.0.0-beta-4-bin\apache-maven-4.0.0-beta-4\bin\mvn.cmd"
-
-def get_project_root():
+def ejecutar_microservicio(nombre, ruta_clases, main_class):
     """
-    Obtiene la ruta de la carpeta donde se encuentra este script.
+    Ejecuta un microservicio Java usando 'java -cp' con la ruta de las clases y la clase principal.
     """
-    return os.path.dirname(os.path.abspath(__file__))
+    comando = f"java -cp \"{ruta_clases}\" {main_class}"
+    print(f"[INFO] Iniciando {nombre} con comando: {comando}")
+    try:
+        proceso = subprocess.Popen(comando, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"[INFO] Microservicio '{nombre}' iniciado correctamente.")
+        return proceso
+    except Exception as e:
+        print(f"[ERROR] No se pudo iniciar el microservicio '{nombre}': {e}")
+        return None
 
-
-def find_jar_file(base_dir, pattern):
+def detener_microservicio(proceso, nombre):
     """
-    Busca el primer archivo JAR que coincida con el patrón especificado en el directorio base.
+    Detiene un microservicio en ejecución.
     """
-    for root, dirs, files in os.walk(base_dir):
-        for file in files:
-            if file.endswith(".jar") and pattern in file:
-                return os.path.join(root, file)
-    raise FileNotFoundError(f"No se encontró un archivo JAR que coincida con '{pattern}' en {base_dir}")
-
-
-def wait_for_log_output(process, search_text, timeout=60):
-    """
-    Espera a que la salida del proceso contenga la línea 'search_text'.
-    """
-    start_time = time.time()
-    while time.time() - start_time < timeout:
-        line = process.stdout.readline().decode('utf-8').strip()
-        if line:
-            print(line)
-        if search_text in line:
-            print(f"[INFO] Se detectó la línea de texto '{search_text}' en el log.")
-            return True
-    raise TimeoutError(f"No se detectó el texto '{search_text}' en los logs después de {timeout} segundos.")
-
-
-def run_java_application(jar_path, main_class=None):
-    """
-    Ejecuta una aplicación Java usando 'java -jar' o 'java -cp' si se proporciona la clase principal.
-    """
-    if main_class:
-        command = ["java", "-cp", jar_path, main_class]
-    else:
-        command = ["java", "-jar", jar_path]
-
-    print(f"[INFO] Ejecutando: {' '.join(command)}")
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    return process
-
-
-def run_command(command, work_dir=None):
-    """
-    Ejecuta un comando en el sistema operativo y muestra su salida.
-    """
-    # Asegura que 'mvn' use la ruta completa
-    if command[0] == "mvn":
-        command[0] = MAVEN_CMD
-
-    print(f"[INFO] Ejecutando comando: {' '.join(command)} en {work_dir if work_dir else 'directorio actual'}")
-    process = subprocess.Popen(command, cwd=work_dir, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    for line in process.stdout:
-        print(line.decode('utf-8').strip())
-    process.wait()
-    if process.returncode != 0:
-        raise Exception(f"Error ejecutando el comando: {' '.join(command)}")
-
+    if proceso:
+        proceso.terminate()
+        proceso.wait()
+        print(f"[INFO] Microservicio '{nombre}' detenido correctamente.")
 
 def main():
-    # Obtiene la ruta raíz del proyecto
-    project_root = get_project_root()
+    """
+    Punto de entrada principal: inicia y gestiona los microservicios.
+    """
+    # Configuración de rutas y clases principales
+    base_dir = os.path.abspath("C:/Users/cuell/OneDrive/Documentos/GitHub/Python-Script-Launcher/Main")
+    microservicios = [
+        {"nombre": "Backend_Wakanda_Salud", "ruta_clases": os.path.join(base_dir, "Backend_Wakanda_Salud/target/classes"),
+         "main_class": "org.example.backend_wakanda_salud.BackendWakandaSaludApplication"},
+        {"nombre": "Backend-Wakanda-Agua", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Agua/target/classes"),
+         "main_class": "org.example.backendwakandaagua.BackendWakandaAguaApplication"},
+        {"nombre": "Backend-Wakanda-Trafico", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Trafico/target/classes"),
+         "main_class": "org.example.backendwakandatrafico.BackendWakandaTraficoApplication"},
+        {"nombre": "Backend-Wakanda-Seguridad", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Seguridad/target/classes"),
+         "main_class": "org.example.backendwakandaseguridad.BackendWakandaSeguridadApplication"},
+        {"nombre": "Backend-Wakanda-Residuos", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Residuos/target/classes"),
+         "main_class": "org.example.backendwakandaresiduos.BackendWakandaResiduosApplication"},
+        {"nombre": "Backend-Wakanda-Servicios-Emergencia", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Servicios-Emergencia/target/classes"),
+         "main_class": "org.example.backendwakandaserviciosemergencia.BackendWakandaServiciosEmergenciaApplication"},
+        {"nombre": "Backend-Wakanda-Educacion", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Educacion/target/classes"),
+         "main_class": "org.example.backendwakandaeducacion.BackendWakandaEducacionApplication"},
+        {"nombre": "Backend-Wakanda-Cultura-Ocio-Turismo", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Cultura-Ocio-Turismo/target/classes"),
+         "main_class": "org.example.backendwakandaculturaocio.BackendWakandaCulturaOcioTurismoApplication"},
+        {"nombre": "Backend-Wakanda-Transporte-Movilidad", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Transporte-Movilidad/target/classes"),
+         "main_class": "org.example.backendwakandamovilidad.BackendWakandaTransporteMovilidadApplication"},
+        {"nombre": "Backend-Wakanda-Conectividad-Redes", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Conectividad-Redes/target/classes"),
+         "main_class": "org.example.backendwakandaredes.BackendWakandaConectividadRedesApplication"},
+        {"nombre": "Backend-Wakanda-Energia-Sostenible-Eficiente", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Energia-Sostenible-Eficiente/target/classes"),
+         "main_class": "org.example.backendwakandaenergia.BackendWakandaEnergiaSostenibleApplication"},
+        {"nombre": "Backend-Wakanda-Gobierno", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-Gobierno/target/classes"),
+         "main_class": "org.example.backendwakandagobierno.BackendWakandaGobiernoApplication"},
+        {"nombre": "Backend-Wakanda-API-Central", "ruta_clases": os.path.join(base_dir, "Backend-Wakanda-API-Central/target/classes"),
+         "main_class": "org.example.backendwakandaapicentral.BackendWakandaApiCentralApplication"}
+    ]
 
-    # Rutas relativas de los microservicios y del Init Manager
-    init_manager_path = os.path.join(project_root, 'InitManager')
-    salud_service_path = os.path.join(project_root, 'Backend_Wakanda_Salud')
-    gobierno_service_path = os.path.join(project_root, 'Backend_Wakanda_Gobierno')
+    procesos = []
 
-    # Compilar los proyectos (si es necesario) usando Maven
-    print("[INFO] Compilando Init Manager")
-    run_command(["mvn", "clean", "package", "-DskipTests"], work_dir=init_manager_path)
-
-    print("[INFO] Compilando Servicio de Salud")
-    run_command(["mvn", "clean", "package", "-DskipTests"], work_dir=salud_service_path)
-
-    print("[INFO] Compilando Servicio de Gobierno")
-    run_command(["mvn", "clean", "package", "-DskipTests"], work_dir=gobierno_service_path)
-
-    # Buscar los archivos JAR resultantes de la compilación
-    print("[INFO] Buscando archivos JAR...")
-    init_manager_jar = find_jar_file(init_manager_path, "InitManager")
-    salud_service_jar = find_jar_file(salud_service_path, "BackendWakandaSalud")
-    gobierno_service_jar = find_jar_file(gobierno_service_path, "BackendWakandaGobierno")
-
-    print(f"[INFO] Archivo JAR de Init Manager: {init_manager_jar}")
-    print(f"[INFO] Archivo JAR de Servicio de Salud: {salud_service_jar}")
-    print(f"[INFO] Archivo JAR de Servicio de Gobierno: {gobierno_service_jar}")
-
-    # Ejecutar Init Manager
-    print("[INFO] Iniciando Init Manager...")
-    init_manager_process = run_java_application(init_manager_jar)
-
-    # Esperar a que Init Manager esté listo
     try:
-        wait_for_log_output(init_manager_process, "Todos los microservicios iniciados en orden.", timeout=300)
-    except TimeoutError as e:
-        print("[ERROR] No se detectó que el Init Manager estuviera listo: ", e)
-        init_manager_process.terminate()
-        return
+        print("=== Iniciando microservicios ===")
+        for ms in microservicios:
+            proceso = ejecutar_microservicio(ms["nombre"], ms["ruta_clases"], ms["main_class"])
+            if proceso:
+                procesos.append((proceso, ms["nombre"]))
 
-    # Ejecutar el servicio de Salud
-    print("[INFO] Iniciando Servicio de Salud...")
-    salud_service_process = run_java_application(salud_service_jar)
-    try:
-        wait_for_log_output(salud_service_process, "Started BackendWakandaSaludApplication", timeout=120)
-    except TimeoutError as e:
-        print("[ERROR] No se detectó que el Servicio de Salud estuviera listo: ", e)
-        salud_service_process.terminate()
-        return
+        print("\n=== Todos los microservicios están en ejecución ===")
+        print("Presiona Ctrl + C para detener los microservicios.")
 
-    # Ejecutar el servicio de Gobierno
-    print("[INFO] Iniciando Servicio de Gobierno...")
-    gobierno_service_process = run_java_application(gobierno_service_jar)
-    try:
-        wait_for_log_output(gobierno_service_process, "Started BackendWakandaGobiernoApplication", timeout=120)
-    except TimeoutError as e:
-        print("[ERROR] No se detectó que el Servicio de Gobierno estuviera listo: ", e)
-        gobierno_service_process.terminate()
-        return
+        while True:
+            pass
 
-    print("[INFO] Todos los microservicios se iniciaron correctamente.")
+    except KeyboardInterrupt:
+        print("\n=== Deteniendo microservicios ===")
+        for proceso, nombre in procesos:
+            detener_microservicio(proceso, nombre)
 
+    finally:
+        print("\n=== Ejecución finalizada ===")
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print("[ERROR] Ocurrió un error inesperado: ", e)
+    main()

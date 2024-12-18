@@ -2,7 +2,18 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Main/Backend_Wakanda_Gobierno" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-API-Central" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Agua" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Conectividad-Redes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Cultura-Ocio-Turismo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Educacion" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Energia-Sostenible-Eficiente" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Gobierno" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Residuos" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Seguridad" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Servicios-Emergencia" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Trafico" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Main/Backend-Wakanda-Transporte-Movilidad" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Main/Backend_Wakanda_Salud" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Main/InitManager" vcs="Git" />
   </component>
